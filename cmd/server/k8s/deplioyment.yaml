@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-go-ci-cd
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-go-ci-cd
+  template:
+    metadata:
+      labels:
+        app: demo-go-ci-cd
+    spec:
+      containers:
+        - name: demo-go-ci-cd
+          image: akdt15/demo-go-ci-cd:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config

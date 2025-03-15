@@ -1,0 +1,41 @@
+demo-go-ci-cd/
+│── cmd/
+│   ├── server/                   # Entry point for the server
+│   │   ├── main.go                # Main application file
+│
+│── config/                        # Configuration files
+│   ├── config.yaml                # App configuration file (e.g., DB, ports, env variables)
+│   ├── config.go                  # Loads and parses config
+│
+│── internal/                      # Private application logic
+│   ├── handlers/                   # API handlers/controllers
+│   │   ├── hello_handler.go         # Example handler
+│   │   ├── health_check.go          # Health check handler
+│   │
+│   ├── services/                   # Business logic layer
+│   │   ├── hello_service.go         # Service for processing hello requests
+│   │
+│   ├── repository/                 # Data persistence layer
+│   │   ├── user_repo.go             # Database interactions
+│
+│── pkg/                            # Reusable utility packages
+│   ├── logger/                     # Custom logging utilities
+│   ├── middleware/                  # Middleware (e.g., auth, logging)
+│   ├── models/                      # Data models
+│
+│── k8s/                            # Kubernetes deployment files
+│   ├── deployment.yaml              # Kubernetes Deployment
+│   ├── service.yaml                 # Kubernetes Service
+│
+│── scripts/                        # Scripts for automation
+│   ├── build.sh                     # Build script
+│   ├── deploy.sh                    # Deployment script
+│
+│── test/                           # Unit and integration tests
+│   ├── hello_handler_test.go        # Example test
+│
+│── Dockerfile                      # Docker build file
+│── Jenkinsfile                     # CI/CD pipeline configuration
+│── go.mod                           # Go module dependencies
+│── go.sum                           # Dependency checksum file
+│── README.md                        # Project documentation
