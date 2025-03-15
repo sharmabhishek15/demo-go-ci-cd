@@ -6,7 +6,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Hello, CI/CD with Go! Local se")
+    fmt.Fprintln(w, "Hello, CI/CD with Go! Docker se")
 }
 
 func main() {

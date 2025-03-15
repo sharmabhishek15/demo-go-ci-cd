@@ -10,11 +10,11 @@ RUN go mod download
 # Copy the rest of the application files
 COPY . .
 
-# Set the working directory for the build
-WORKDIR /app/cmd/server
+# # Set the working directory for the build
+# WORKDIR /app/cmd/server
 
-# Build the Go application
-RUN go build -o /app/demo-go-ci-cd main.go
+# Build the binary for Linux OS
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/demo-go-ci-cd cmd/server/main.go && ls -l /app/demo-go-ci-cd
 
 # Create a minimal runtime image
 FROM alpine:latest
