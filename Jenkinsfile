@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/akdt/demo-go-ci-cd.git'
+                git branch: 'main', git 'https://github.com/akdt/demo-go-ci-cd.git'
             }
         }
 
