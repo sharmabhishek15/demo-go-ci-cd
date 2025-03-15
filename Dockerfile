@@ -1,4 +1,4 @@
-FROM golang:1.20 AS builder
+FROM golang:1.21 AS builder
 WORKDIR /app
 
 # Copy the Go module files
@@ -10,8 +10,11 @@ RUN go mod download
 # Copy the rest of the application files
 COPY . .
 
+# Set the working directory for the build
+WORKDIR /app/cmd/server
+
 # Build the Go application
-RUN go build -o demo-go-ci-cd
+RUN go build -o /app/demo-go-ci-cd main.go
 
 # Create a minimal runtime image
 FROM alpine:latest
@@ -21,10 +24,13 @@ WORKDIR /root/
 
 # Copy binary from builder
 COPY --from=builder /app/demo-go-ci-cd .
-COPY --from=builder /app/config/config.yaml ./config/config.yaml
+COPY --from=builder /app/config ./config
+
+# Ensure the binary has execution permissions
+RUN chmod +x /root/demo-go-ci-cd
 
 # Expose application port (change if needed)
 EXPOSE 8080
 
 # Run the application
-CMD ["./demo-go-ci-cd"]
+CMD ["/root/demo-go-ci-cd"]

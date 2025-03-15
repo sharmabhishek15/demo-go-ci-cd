@@ -1,6 +1,6 @@
-module github.com/sharmabhishek15/go-ci-cd
+module github.com/sharmabhishek15/demo-go-ci-cd
 
-go 1.23.6
+go 1.21
 
 require github.com/spf13/viper v1.19.0
 
