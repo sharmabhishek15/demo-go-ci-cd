@@ -2,44 +2,36 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "demo-go-ci-cd"
-        DOCKER_REGISTRY = "akdt15"
+        IMAGE_NAME = "akdt15/demo-go-ci-cd"
+        DOCKER_CREDENTIALS_ID = "my-dockerhub-creds"
+        REGISTRY_URL = "https://index.docker.io/v1/"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/sharmabhishek15/demo-go-ci-cd.git'
-            }
-        }
-
-        stage('Build and Test') {
-            steps {
-                sh 'go mod tidy'
-                sh 'go build -o demo-go-ci-cd ./cmd/server'
-                sh 'go test ./...'
+                git 'https://github.com/akdt/demo-go-ci-cd.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_REGISTRY/$IMAGE_NAME:latest .'
+                sh 'docker build -t ${IMAGE_NAME} .'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
-                    sh 'docker push $DOCKER_REGISTRY/$IMAGE_NAME:latest'
+                withDockerRegistry([credentialsId: DOCKER_CREDENTIALS_ID, url: REGISTRY_URL]) {
+                    sh "docker push ${IMAGE_NAME}"
                 }
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl apply -f k8s/service.yaml'
-            }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         sh 'kubectl apply -f k8s/deployment.yaml'
+        //     }
         }
     }
 }
