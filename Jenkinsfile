@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "akdt15/demo-go-ci-cd"
-        DOCKER_CREDENTIALS_ID = "my-dockerhub-creds"
+        DOCKER_CREDENTIALS_ID = "dockerhub_creds"
         REGISTRY_URL = "https://index.docker.io/v1/"
     }
 
