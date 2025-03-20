@@ -10,16 +10,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/akdt/demo-go-ci-cd.git',
-                            credentialsId: 'Github'
-                        ]]
-                    ])
-                }
+                git url: 'https://github.com/akdt/demo-go-ci-cd.git'
             }
         }
 
